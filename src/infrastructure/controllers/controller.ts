@@ -3,13 +3,15 @@ import { GetOrdersUseCase } from "../../application/use-cases/get-orders.use-cas
 import { GetOrderByIdUseCase } from "../../application/use-cases/get-order-by-id.use-case";
 import { CreateOrderUseCase } from "../../application/use-cases/create-order.use-case";
 import { UpdateOrderUseCase } from "../../application/use-cases/update-order.use-case";
+import { DeleteOrderUseCase } from "../../application/use-cases/delete-order.use-case";
 
 export class Controller {
     constructor(
         readonly getOrdersUseCase: GetOrdersUseCase,
         readonly getOrderByIdUseCase: GetOrderByIdUseCase,
         readonly createOrderUseCase: CreateOrderUseCase,
-        readonly updateOrderUseCase: UpdateOrderUseCase
+        readonly updateOrderUseCase: UpdateOrderUseCase,
+        readonly deleteOrderUseCase: DeleteOrderUseCase
     ) { }
 
     async getOrders(req: Request, res: Response) {
@@ -48,6 +50,16 @@ export class Controller {
 
         if (!order) {
             return res.status(400).json({ message: "Failed to update order" });
+        }
+        return res.status(200).json(order);
+    }
+
+    async deleteOrder(req: Request, res: Response) {
+        const orderId = req.params.id;
+        const order = await this.deleteOrderUseCase.execute(orderId);
+
+        if (!order) {
+            return res.status(400).json({ message: "Failed to delete order" });
         }
         return res.status(200).json(order);
     }
