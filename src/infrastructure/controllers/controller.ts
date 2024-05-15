@@ -18,7 +18,7 @@ export class Controller {
         if (!orders) {
             return res.status(404).json({ message: "Orders not found" });
         }
-        return res.status(200).json({ orders });
+        return res.status(200).json(orders);
     }
 
     async getOrderById(req: Request, res: Response) {
@@ -28,7 +28,7 @@ export class Controller {
         if (!order) {
             return res.status(404).json({ message: "Order not found" });
         }
-        return res.status(200).json({ order });
+        return res.status(200).json(order);
     }
 
     async createOrder(req: Request, res: Response) {
@@ -38,7 +38,7 @@ export class Controller {
         if (!order) {
             return res.status(400).json({ message: "Failed to create order" });
         }
-        return res.status(201).json({ order });
+        return res.status(201).json(order);
     }
 
     async updateOrder(req: Request, res: Response) {
@@ -49,6 +49,6 @@ export class Controller {
         if (!order) {
             return res.status(400).json({ message: "Failed to update order" });
         }
-        return res.status(200).json({ order });
+        return res.status(200).json(order);
     }
 }
